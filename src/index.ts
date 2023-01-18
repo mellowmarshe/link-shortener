@@ -17,6 +17,8 @@ export default {
       return put(request, env, ctx);
     } else if (request.method == "GET") {
       return get(request, env, ctx);
+    } else if (request.method == "DELETE") {
+      return delete_(request, env, ctx);
     }
 
     return Response.json({ status: "Unsupported method" }, { status: 405 });
@@ -58,4 +60,29 @@ async function get(
   }
 
   return Response.redirect(link.url, 301);
+}
+
+async function delete_(
+  request: Request,
+  env: Env,
+  ctx: ExecutionContext
+): Promise<Response> {
+  const authorization = request.headers.get("Authorization");
+
+  if (!authorization || authorization != env.SECRET) {
+    return Response.json({ status: "Unauthorized" }, { status: 401 });
+  }
+
+  const url = new URL(request.url);
+  const { pathname } = url;
+
+  const id = pathname.replace("/", "");
+
+  if (!id) {
+    return Response.json({ status: "Unknown id" }, { status: 404 });
+  }
+
+  await env.KV.delete(id);
+
+  return Response.json({ status: "Ok" });
 }

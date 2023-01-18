@@ -27,9 +27,16 @@ curl -X PUT http://127.0.0.1:8787 \
     -d '{"url": "URL"}'
 ```
 
+`DELETE` a link
+
+```shell
+curl -X DELETE http://127.0.0.1:8787/ID \
+    -H "Authorization: SECRET"
+```
+
 ## Todo
 
-- [ ] Support `DELETE` to delete a link
+- [x] Support `DELETE` to delete a link
 - [ ] Route to list all links
 - [ ] Add link specific TTLs
 - [ ] Maybe a hit tracker 👀
