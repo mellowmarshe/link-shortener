@@ -26,3 +26,10 @@ curl -X PUT http://127.0.0.1:8787 \
     -H "Authorization: SECRET" \
     -d '{"url": "URL"}'
 ```
+
+## Todo
+
+- [ ] Support `DELETE` to delete a link
+- [ ] Route to list all links
+- [ ] Add link specific TTLs
+- [ ] Maybe a hit tracker 👀
